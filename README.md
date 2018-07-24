@@ -10,14 +10,14 @@ yarn add @skt-t1-byungi/event-emitter
 
 ### Node
 ```js
-const EventEmitter = require('event-emitter')
+const EventEmitter = require('@skt-t1-byungi/event-emitter')
 ```
 ### Browser
 ```html
 <script src="https://unpkg.com/@skt-t1-byungi/event-emitter"></script>
 ```
 
-## Example
+## Usage
 ```js
 const emitter = new EventEmitter()
 
