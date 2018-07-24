@@ -8,8 +8,12 @@
     "url": "git+https://github.com/skt-t1-byungi/event-emitter.git"
   },
   "main": "EventEmitter.js",
+  "module": "EventEmitter.es.js",
+  "unpkg": "EventEmitter.min.js",
   "files": [
     "EventEmitter.js",
+    "EventEmitter.es.js",
+    "EventEmitter.min.js",
     "EventEmitter.d.ts"
   ],
   "keywords": [
@@ -17,12 +21,13 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "tsc",
+    "build": "tsc && bili EventEmitter.js -o ./ --format umd-min,es --name EventEmitter --moduleName EventEmitter --no-js",
     "test": "tsc && ava",
-    "prepublishOnly": "npm run test"
+    "prepublishOnly": "npm run build && ava"
   },
   "devDependencies": {
     "ava": "^0.25.0",
+    "bili": "^3.1.2",
     "tslint": "^5.11.0",
     "tslint-config-byungi": "^0.0.5",
     "typescript": "^2.9.2"
