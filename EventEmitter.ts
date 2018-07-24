@@ -1,14 +1,15 @@
 type Listener = (...params: any[]) => void
 type KeyListener = Listener
 type ListenerInfo = [KeyListener, Listener]
+interface OnOptions {key: KeyListener}
 interface ListenerMap { [name: string]: ListenerInfo[] }
 
 class EventEmitter {
   private _events: ListenerMap = {}
 
-  public on (name: string, listener: Listener, keyListener: Listener = listener) {
+  public on (name: string, listener: Listener, { key }: OnOptions = { key: listener }) {
     if (!this._events[name]) this._events[name] = []
-    this._events[name].push([keyListener, listener])
+    this._events[name].push([key, listener])
   }
 
   public off (name: string, listener?: Listener) {
@@ -29,7 +30,7 @@ class EventEmitter {
       this.off(name, listener)
       listener(...params)
     }
-    this.on(name, onceListener, listener)
+    this.on(name, onceListener, { key: listener })
   }
 
   public emit (name: string, ...params: any[]) {
