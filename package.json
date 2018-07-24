@@ -1,7 +1,7 @@
 {
   "name": "@skt-t1-byungi/event-emitter",
   "description": "tiny event emitter",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "author": "skt-t1-byungi <tiniwz@gmail.com>",
   "repository": {
     "type": "git",
