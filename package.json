@@ -1,14 +1,11 @@
 {
-  "name": "@byungi/event-emitter",
+  "name": "@skt-t1-byungi/event-emitter",
   "description": "tiny event emitter",
   "version": "0.0.1",
-  "author": {
-    "email": "tiniwz@gmail.com",
-    "name": "skt-t1-byungi"
-  },
+  "author": "skt-t1-byungi <tiniwz@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/skt-t1-byungi/event-emitter.git"
+    "url": "git+https://github.com/skt-t1-byungi/event-emitter.git"
   },
   "main": "EventEmitter.js",
   "files": [
@@ -29,5 +26,9 @@
     "tslint": "^5.11.0",
     "tslint-config-byungi": "^0.0.5",
     "typescript": "^2.9.2"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/skt-t1-byungi/event-emitter/issues"
+  },
+  "homepage": "https://github.com/skt-t1-byungi/event-emitter#readme"
 }

@@ -1,11 +1,11 @@
-# @byungi/event-emitter
+# @skt-t1-byungi/event-emitter
 tiny event emitter
 
 ## Install
 ```sh
-npm i @byungi/event-emitter
+npm i @skt-t1-byungi/event-emitter
 // or
-yarn add @byungi/event-emitter
+yarn add @skt-t1-byungi/event-emitter
 ```
 ```js
 const EventEmitter = require('event-emitter')
