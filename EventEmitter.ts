@@ -7,12 +7,11 @@ class EventEmitter {
 
   public on (name: string, listener: Listener) {
     assertListener(listener)
-
     if (!this._listeners[name]) this._listeners[name] = []
     this._listeners[name].push(listener)
   }
-  public off (name: string, listener?: Listener) {
 
+  public off (name: string, listener?: Listener) {
     if (!this._listeners[name]) return
 
     if (!listener) {
@@ -33,7 +32,6 @@ class EventEmitter {
       this.off(name, listener)
       listener(...params)
     }) as OnceListener
-
     onceListener.key = listener
 
     this.on(name, onceListener)
