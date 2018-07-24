@@ -1,42 +1,53 @@
 type Listener = (...params: any[]) => void
-type KeyListener = Listener
-type ListenerInfo = [KeyListener, Listener]
-interface OnOptions {key: KeyListener}
-interface ListenerMap { [name: string]: ListenerInfo[] }
+type OnceListener = Listener & {key: Listener}
+interface ListenerMap { [name: string]: Array<Listener | OnceListener> }
 
 class EventEmitter {
-  private _events: ListenerMap = {}
+  private _listeners: ListenerMap = {}
 
-  public on (name: string, listener: Listener, { key }: OnOptions = { key: listener }) {
-    if (!this._events[name]) this._events[name] = []
-    this._events[name].push([key, listener])
+  public on (name: string, listener: Listener) {
+    assertListener(listener)
+
+    if (!this._listeners[name]) this._listeners[name] = []
+    this._listeners[name].push(listener)
   }
-
   public off (name: string, listener?: Listener) {
-    if (!this._events[name]) return
+
+    if (!this._listeners[name]) return
 
     if (!listener) {
-      delete this._events[name]
+      delete this._listeners[name]
       return
     }
 
-    this._events[name] = this._events[name].filter(([key]) => key !== listener)
+    this._listeners[name] = this._listeners[name]
+      .filter(added => added !== listener && (added as OnceListener).key !== listener)
 
-    if (this._events[name].length === 0) delete this._events[name]
+    if (this._listeners[name].length === 0) delete this._listeners[name]
   }
 
   public once (name: string, listener: Listener) {
-    const onceListener = (...params: any[]) => {
+    assertListener(listener)
+
+    const onceListener = ((...params: any[]) => {
       this.off(name, listener)
       listener(...params)
-    }
-    this.on(name, onceListener, { key: listener })
+    }) as OnceListener
+
+    onceListener.key = listener
+
+    this.on(name, onceListener)
   }
 
   public emit (name: string, ...params: any[]) {
-    if (!this._events[name]) return
-    this._events[name].forEach(([,listener]) => listener(...params))
+    if (!this._listeners[name]) return
+    this._listeners[name].forEach(listener => listener(...params))
   }
 }
 
 export = EventEmitter
+
+function assertListener<T> (listener: T) {
+  const type = typeof listener
+  if (type !== 'function') throw new TypeError(`Expected listener to be a function, but ${type}`)
+}
