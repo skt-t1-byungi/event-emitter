@@ -1,6 +1,8 @@
 # @skt-t1-byungi/event-emitter
 > tiny event emitter
 
+![bakabaka](./baka.gif)
+
 ## Install
 ```sh
 npm i @skt-t1-byungi/event-emitter
@@ -8,11 +10,11 @@ npm i @skt-t1-byungi/event-emitter
 yarn add @skt-t1-byungi/event-emitter
 ```
 
-### Node
+### in Node
 ```js
 const EventEmitter = require('@skt-t1-byungi/event-emitter')
 ```
-### Browser
+### in Browser
 ```html
 <script src="https://unpkg.com/@skt-t1-byungi/event-emitter"></script>
 ```
