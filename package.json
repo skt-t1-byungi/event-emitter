@@ -1,0 +1,33 @@
+{
+  "name": "@byungi/event-emitter",
+  "description": "tiny event emitter",
+  "version": "0.0.1",
+  "author": {
+    "email": "tiniwz@gmail.com",
+    "name": "skt-t1-byungi"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/skt-t1-byungi/event-emitter.git"
+  },
+  "main": "EventEmitter.js",
+  "files": [
+    "EventEmitter.js",
+    "EventEmitter.d.ts"
+  ],
+  "keywords": [
+    "event emitter"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "tsc",
+    "test": "tsc && ava",
+    "prepublishOnly": "npm run test"
+  },
+  "devDependencies": {
+    "ava": "^0.25.0",
+    "tslint": "^5.11.0",
+    "tslint-config-byungi": "^0.0.5",
+    "typescript": "^2.9.2"
+  }
+}
