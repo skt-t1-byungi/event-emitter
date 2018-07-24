@@ -22,7 +22,7 @@ class EventEmitter {
 
     this._events[name] = this._events[name].filter(([key]) => key !== listener)
 
-    if (this._events[name].length === 0) this.off(name)
+    if (this._events[name].length === 0) delete this._events[name]
   }
 
   public once (name: string, listener: Listener) {
@@ -34,7 +34,8 @@ class EventEmitter {
   }
 
   public emit (name: string, ...params: any[]) {
-    (this._events[name] || []).forEach(([,listener]) => listener(...params))
+    if (!this._events[name]) return
+    this._events[name].forEach(([,listener]) => listener(...params))
   }
 }
 
