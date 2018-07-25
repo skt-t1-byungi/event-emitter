@@ -35,5 +35,6 @@
   "bugs": {
     "url": "https://github.com/skt-t1-byungi/event-emitter/issues"
   },
-  "homepage": "https://github.com/skt-t1-byungi/event-emitter#readme"
+  "homepage": "https://github.com/skt-t1-byungi/event-emitter#readme",
+  "dependencies": {}
 }
