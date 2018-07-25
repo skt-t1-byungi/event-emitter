@@ -41,7 +41,7 @@ test('prevent "Object.prototype[method]" access.', t => {
   t.notThrows(() => emitter.emit('toString'))
 })
 
-test('if not listener, throws error', t => {
+test('if invalid listener type, throws error', t => {
   const emitter = new EventEmitter()
   t.throws(() => emitter.on('test', true))
   t.throws(() => emitter.off('test', true))
