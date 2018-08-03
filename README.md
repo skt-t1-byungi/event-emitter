@@ -20,7 +20,7 @@ const EventEmitter = require('@skt-t1-byungi/event-emitter')
 ```
 
 ### Browsers support
-IE9+
+IE6+ 👴🏻
 
 ## Usage
 ```js

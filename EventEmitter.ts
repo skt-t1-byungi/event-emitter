@@ -1,3 +1,6 @@
+import filter = require('@skt-t1-byungi/array-filter')
+import forEach = require('@skt-t1-byungi/array-for-each')
+
 type Listener = (...params: any[]) => void
 type OnceListener = Listener & {key: Listener}
 interface ListenerMap { [name: string]: Array<Listener | OnceListener > }
@@ -21,8 +24,10 @@ class EventEmitter {
       return
     }
 
-    this._listeners[name] = this._listeners[name]
-      .filter(added => added !== listener && (added as OnceListener).key !== listener)
+    this._listeners[name] = filter(
+      this._listeners[name],
+      added => added !== listener && (added as OnceListener).key !== listener
+    )
 
     if (this._listeners[name].length === 0) delete this._listeners[name]
   }
@@ -42,11 +47,11 @@ class EventEmitter {
 
   public emit (name: string, ...params: any[]) {
     if (!this._hasListeners(name)) return
-    this._listeners[name].slice().forEach(listener => listener(...params))
+    forEach(this._listeners[name].slice(), listener => listener(...params))
   }
 
   private _hasListeners (name: string) {
-    return this._listeners.hasOwnProperty(name)
+    return Object.prototype.hasOwnProperty.call(this._listeners, name)
   }
 }
 

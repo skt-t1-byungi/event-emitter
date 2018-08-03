@@ -4,3 +4,4 @@ node_modules/
 *.js
 !test.js
 *.map
+*.log
