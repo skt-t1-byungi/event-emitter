@@ -10,6 +10,7 @@ class EventEmitter {
 
   public on (name: string, listener: Listener) {
     assertListener(listener)
+
     if (!this._hasListeners(name)) this._listeners[name] = []
     this._listeners[name].push(listener)
   }
