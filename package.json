@@ -10,6 +10,7 @@
   "main": "EventEmitter.js",
   "module": "EventEmitter.es.js",
   "unpkg": "EventEmitter.min.js",
+  "types": "EventEmitter.d.ts",
   "files": [
     "EventEmitter.js",
     "EventEmitter.es.js",
