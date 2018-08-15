@@ -38,6 +38,7 @@
   "homepage": "https://github.com/skt-t1-byungi/event-emitter#readme",
   "dependencies": {
     "@skt-t1-byungi/array-filter": "^0.1.0",
+    "@skt-t1-byungi/array-find-index": "^0.1.0",
     "@skt-t1-byungi/array-for-each": "^0.1.0"
   }
 }

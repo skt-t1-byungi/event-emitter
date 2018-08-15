@@ -634,6 +634,10 @@
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@skt-t1-byungi/array-filter/-/array-filter-0.1.0.tgz#d34c18303493e19da52db2bcf3e1c9dfaa36890e"
 
+"@skt-t1-byungi/array-find-index@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@skt-t1-byungi/array-find-index/-/array-find-index-0.1.0.tgz#7776c345aca0dc70c07f78636caf033d3aada1cc"
+
 "@skt-t1-byungi/array-for-each@^0.1.0":
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/@skt-t1-byungi/array-for-each/-/array-for-each-0.1.0.tgz#6eff33d88572d19664be96a6b334edabe9892d45"

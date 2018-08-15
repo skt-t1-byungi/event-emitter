@@ -47,3 +47,15 @@ test('if invalid listener type, throws error', t => {
   t.throws(() => emitter.off('test', true))
   t.throws(() => emitter.once('test', true))
 })
+
+test('has listener', t => {
+  const emitter = new EventEmitter()
+  const listener = () => {}
+  
+  t.false(emitter.has('test'))
+  emitter.on('test', listener)
+  
+  t.true(emitter.has('test'))
+  t.false(emitter.has('test', ()=>{}))
+  t.true(emitter.has('test', listener))
+})
