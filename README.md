@@ -35,6 +35,8 @@ emitter.emit('add', 1, 2)
 
 emitter.once('event', listener) // runs only once
 emitter.off('event', listener) // remove a listener. if no listener, remove all listeners.
+emitter.has('event') // Returns whether the listener exists or not.
+emitter.has('event', listener) 
 ```
 
 ## License
