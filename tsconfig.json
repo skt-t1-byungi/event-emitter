@@ -1,9 +1,9 @@
 {
-  "compilerOptions": {
-    "target": "es5", 
-    "module": "commonjs",
-    "lib": ["es2015"],  
-    "declaration": true, 
-    "strict": true
-  }
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "lib": ["es2015"],
+        "declaration": true,
+        "strict": true
+    }
 }
