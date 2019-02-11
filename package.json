@@ -22,7 +22,7 @@
     ],
     "license": "MIT",
     "scripts": {
-        "build": "rm -rf dist && bili src/index.ts --format esm,umd,umd-min --module-name EventEmitter",
+        "build": "rm -rf dist && bili src/index.ts --format esm,umd --module-name EventEmitter",
         "test": "ava",
         "prepublishOnly": "npm run test && npm run build"
     },
