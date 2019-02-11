@@ -1,12 +1,12 @@
-import filter = require('@skt-t1-byungi/array-filter')
-import findIndex = require('@skt-t1-byungi/array-find-index')
-import forEach = require('@skt-t1-byungi/array-for-each')
+import filter from '@skt-t1-byungi/array-filter'
+import findIndex from '@skt-t1-byungi/array-find-index'
+import forEach from '@skt-t1-byungi/array-for-each'
 
 type Listener = (...params: any[]) => void
 type OnceListener = Listener & {key: Listener}
 interface ListenerMap { [name: string]: Array<Listener | OnceListener > }
 
-class EventEmitter {
+export class EventEmitter {
     private _listeners: ListenerMap = {}
 
     public on (name: string, listener: Listener) {
@@ -59,7 +59,7 @@ class EventEmitter {
     }
 }
 
-export = EventEmitter
+export default EventEmitter
 
 function assertListener (listener: Listener) {
     const type = typeof listener

@@ -1,21 +1,15 @@
 {
-    "name": "@skt-t1-byungi/event-emitter",
+    "name": "@byungi/event-emitter",
     "description": "tiny event emitter",
-    "version": "0.1.1",
+    "version": "1.0.0",
     "author": "skt-t1-byungi <tiniwz@gmail.com>",
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/skt-t1-byungi/event-emitter.git"
-    },
-    "main": "EventEmitter.js",
-    "module": "EventEmitter.es.js",
-    "unpkg": "EventEmitter.min.js",
-    "types": "EventEmitter.d.ts",
+    "repository": "https://github.com/skt-t1-byungi/rsup-progress.git",
+    "main": "dist/index.umd.js",
+    "module": "dist/index.mjs",
+    "unpkg": "dist/index.umd.min.js",
+    "types": "index.d.ts",
     "files": [
-        "EventEmitter.js",
-        "EventEmitter.es.js",
-        "EventEmitter.min.js",
-        "EventEmitter.d.ts"
+        "dist"
     ],
     "keywords": [
         "event",
@@ -25,24 +19,34 @@
     ],
     "license": "MIT",
     "scripts": {
-        "build": "tsc && bili EventEmitter.js -o ./ --format umd-min,es --name EventEmitter --moduleName EventEmitter --no-js",
-        "test": "tsc && ava",
-        "prepublishOnly": "npm run build && ava"
+        "build": "bili src/index.ts --format esm,umd,umd-min --module-name EventEmitter",
+        "test": "ava",
+        "prepublishOnly": "npm run test && npm run build"
     },
-    "devDependencies": {
-        "ava": "^1.2.1",
-        "bili": "^4.2.5",
-        "tslint": "^5.12.1",
-        "tslint-config-byungi": "^0.1.0",
-        "typescript": "^3.3.3"
-    },
-    "bugs": {
-        "url": "https://github.com/skt-t1-byungi/event-emitter/issues"
-    },
-    "homepage": "https://github.com/skt-t1-byungi/event-emitter",
     "dependencies": {
         "@skt-t1-byungi/array-filter": "^0.1.0",
         "@skt-t1-byungi/array-find-index": "^0.1.0",
         "@skt-t1-byungi/array-for-each": "^0.1.0"
+    },
+    "devDependencies": {
+        "ava": "^1.2.1",
+        "bili": "^4.2.5",
+        "rollup-plugin-typescript2": "^0.19.2",
+        "ts-node": "^8.0.2",
+        "tslint": "^5.12.1",
+        "tslint-config-byungi": "^0.1.0",
+        "typescript": "^3.3.3"
+    },
+    "publishConfig": {
+        "access": "public"
+    },
+    "ava": {
+        "compileEnhancements": false,
+        "extensions": [
+            "ts"
+        ],
+        "require": [
+            "ts-node/register"
+        ]
     }
 }
