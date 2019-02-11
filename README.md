@@ -1,22 +1,30 @@
-# @skt-t1-byungi/event-emitter
+# @byungi/event-emitter
 > tiny event emitter
 
 ![bakabaka](./neko.png)
 
 ## Install
 ```sh
-npm i @skt-t1-byungi/event-emitter
-// or
-yarn add @skt-t1-byungi/event-emitter
+npm i @byungi/event-emitter
+```
+```js
+import EventEmitter from '@byungi/event-emitter'
 ```
 
-### In Node
-```js
-const EventEmitter = require('@skt-t1-byungi/event-emitter')
-```
-### In Browser
+### UMD
 ```html
-<script src="https://unpkg.com/@skt-t1-byungi/event-emitter"></script>
+<script src="https://unpkg.com/@byungi/event-emitter"></script>
+<script>
+    const emitter = new EventEmitter.default();
+</script>
+```
+
+### Browser ESM
+```html
+<script type="module">
+    import EventEmitter from 'https://unpkg.com/@byungi/event-emitter/dist/index.mjs';
+    const emitter = new EventEmitter()
+</script>
 ```
 
 ### Browsers support
@@ -36,7 +44,7 @@ emitter.emit('add', 1, 2)
 emitter.once('event', listener) // runs only once
 emitter.off('event', listener) // remove a listener. if no listener, remove all listeners.
 emitter.has('event') // Returns whether the listener exists or not.
-emitter.has('event', listener) 
+emitter.has('event', listener)
 ```
 
 ## License
