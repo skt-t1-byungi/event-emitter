@@ -19,14 +19,6 @@ import EventEmitter from '@byungi/event-emitter'
 </script>
 ```
 
-### Browser ESM
-```html
-<script type="module">
-    import EventEmitter from 'https://unpkg.com/@byungi/event-emitter/dist/index.mjs';
-    const emitter = new EventEmitter()
-</script>
-```
-
 ### Browsers support
 IE6+ 👴🏻
 

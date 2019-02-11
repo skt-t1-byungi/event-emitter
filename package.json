@@ -6,7 +6,7 @@
     "repository": "https://github.com/skt-t1-byungi/rsup-progress.git",
     "main": "dist/index.umd.js",
     "module": "dist/index.mjs",
-    "unpkg": "dist/index.umd.min.js",
+    "unpkg": "dist/index.umd.js",
     "types": "index.d.ts",
     "engines": {
         "node": ">= 6"
@@ -22,7 +22,7 @@
     ],
     "license": "MIT",
     "scripts": {
-        "build": "bili src/index.ts --format esm,umd,umd-min --module-name EventEmitter",
+        "build": "rm -rf dist && bili src/index.ts --format esm,umd,umd-min --module-name EventEmitter",
         "test": "ava",
         "prepublishOnly": "npm run test && npm run build"
     },
