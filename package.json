@@ -18,7 +18,10 @@
         "EventEmitter.d.ts"
     ],
     "keywords": [
-        "event emitter"
+        "event",
+        "emitter",
+        "old",
+        "ie"
     ],
     "license": "MIT",
     "scripts": {
@@ -27,16 +30,16 @@
         "prepublishOnly": "npm run build && ava"
     },
     "devDependencies": {
-        "ava": "^0.25.0",
-        "bili": "^3.1.2",
-        "tslint": "^5.11.0",
-        "tslint-config-byungi": "^0.0.5",
-        "typescript": "^2.9.2"
+        "ava": "^1.2.1",
+        "bili": "^4.2.5",
+        "tslint": "^5.12.1",
+        "tslint-config-byungi": "^0.1.0",
+        "typescript": "^3.3.3"
     },
     "bugs": {
         "url": "https://github.com/skt-t1-byungi/event-emitter/issues"
     },
-    "homepage": "https://github.com/skt-t1-byungi/event-emitter#readme",
+    "homepage": "https://github.com/skt-t1-byungi/event-emitter",
     "dependencies": {
         "@skt-t1-byungi/array-filter": "^0.1.0",
         "@skt-t1-byungi/array-find-index": "^0.1.0",
