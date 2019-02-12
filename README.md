@@ -3,6 +3,9 @@
 
 ![bakabaka](./neko.png)
 
+[![npm](https://flat.badgen.net/npm/v/@byungi/event-emitter)](https://www.npmjs.com/package/@byungi/event-emitter)
+
+
 ## Install
 ```sh
 npm i @byungi/event-emitter
