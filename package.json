@@ -12,7 +12,8 @@
         "node": ">= 6"
     },
     "files": [
-        "dist"
+        "dist/",
+        "index.d.ts"
     ],
     "keywords": [
         "event",
