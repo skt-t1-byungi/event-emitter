@@ -1,7 +1,7 @@
 {
     "name": "@byungi/event-emitter",
     "description": "tiny event emitter",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "author": "skt-t1-byungi <tiniwz@gmail.com>",
     "repository": "https://github.com/skt-t1-byungi/event-emitter.git",
     "main": "dist/index.umd.js",
