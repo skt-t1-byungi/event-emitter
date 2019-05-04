@@ -2,7 +2,8 @@
 > A tiny event emitter that works old browser, and supports typescript.
 
 [![npm](https://flat.badgen.net/npm/v/@byungi/event-emitter)](https://www.npmjs.com/package/@byungi/event-emitter)
-[![bundle size](https://badgen.net/bundlephobia/minzip/@byungi/event-emitter)](https://bundlephobia.com/result?p=@byungi/event-emitter)
+[![bundle size](https://flat.badgen.net/bundlephobia/minzip/@byungi/event-emitter)](https://bundlephobia.com/result?p=@byungi/event-emitter)
+[![npm](https://flat.badgen.net/travis/skt-t1-byungi/event-emitter)](https://travis-ci.org/skt-t1-byungi/event-emitter)
 
 ![bakabaka](./neko.png)
 
@@ -64,10 +65,10 @@ Add an event listener.
 Returns whether there is an event listener.
 
 ### emit(name, ...params)
-Emit events to listeners.
+Emit event to listeners.
 
 ### off(name[, listener])
-Remove the event listener(s).
+Remove an event listener(s).
 
 ### once(name, listener)
 Add an event listener that runs once.
