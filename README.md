@@ -1,10 +1,10 @@
 # @byungi/event-emitter
-> tiny event emitter
-
-![bakabaka](./neko.png)
+> A tiny event emitter that works old browser, and supports typescript.
 
 [![npm](https://flat.badgen.net/npm/v/@byungi/event-emitter)](https://www.npmjs.com/package/@byungi/event-emitter)
+[![bundle size](https://badgen.net/bundlephobia/minzip/@byungi/event-emitter)](https://bundlephobia.com/result?p=@byungi/event-emitter)
 
+![bakabaka](./neko.png)
 
 ## Install
 ```sh
@@ -22,25 +22,55 @@ import EventEmitter from '@byungi/event-emitter'
 </script>
 ```
 
-### Browsers support
+### Browser ESM
+```html
+<script type="module">
+    import EventEmitter from 'https://unpkg.com/@byungi/event-emitter/dist/index.esm.js'
+    const emitter = new EventEmitter();
+</script>
+```
+
+## Example
+```ts
+interface Events {
+    aa(): void
+    bb(a: number, b: string): void
+}
+const emitter = new EventEmitter<Events>()
+
+// ✔️ Compiled.
+emitter.on('aa', () => { /.../ })
+emitter.on('bb', (a, b) => { /.../ })
+emitter.emit('aa')
+emitter.emit('bb', 100, 'test')
+
+// ❌ Compile error.
+emitter.on('aa', (a, b) => { /.../ })
+emitter.on('bb', (other:boolean) => { /.../ })
+emitter.on('ccc', () => { /.../ })
+emitter.emit('aa', 100, 'test')
+emitter.emit('bb')
+emitter.emit('ccc')
+```
+
+## Browser compatibility
 IE6+ 👴🏻
 
-## Usage
-```js
-const emitter = new EventEmitter()
+## API
+### on(name, listener)
+Add an event listener.
 
-emitter.on('add', (a, b)=>{
-  console.log('add : ' a + b)
-})
+### has(name[, listener])
+Returns whether there is an event listener.
 
-emitter.emit('add', 1, 2)
-// => add : 3
+### emit(name, ...params)
+Emit events to listeners.
 
-emitter.once('event', listener) // runs only once
-emitter.off('event', listener) // remove a listener. if no listener, remove all listeners.
-emitter.has('event') // Returns whether the listener exists or not.
-emitter.has('event', listener)
-```
+### off(name[, listener])
+Remove the event listener(s).
+
+### once(name, listener)
+Add an event listener that runs once.
 
 ## License
 MIT
