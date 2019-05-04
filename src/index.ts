@@ -5,18 +5,19 @@ import forEach from '@skt-t1-byungi/array-for-each'
 type Listener = (...params: any[]) => void
 type OnceListener = Listener & {key: Listener}
 interface ListenerMap { [name: string]: Array<Listener | OnceListener > }
+type EventName<T> = (keyof T) & string
 
-export class EventEmitter {
+export class EventEmitter<T extends { [name in keyof T]: Listener} = any> {
     private _listeners: ListenerMap = {}
 
-    public on (name: string, listener: Listener) {
+    public on<K extends EventName<T>> (name: K, listener: T[K]) {
         assertListener(listener)
 
         if (!this.has(name)) this._listeners[name] = []
         this._listeners[name].push(listener)
     }
 
-    public off (name: string, listener?: Listener) {
+    public off<K extends EventName<T>> (name: K, listener?: T[K]) {
         if (listener) assertListener(listener)
 
         if (!this.has(name)) return
@@ -31,25 +32,25 @@ export class EventEmitter {
         if (this._listeners[name].length === 0) delete this._listeners[name]
     }
 
-    public once (name: string, listener: Listener) {
+    public once<K extends EventName<T>> (name: K, listener: T[K]) {
         assertListener(listener)
 
         const onceListener = ((...params: any[]) => {
             this.off(name, listener)
             listener(...params)
-        }) as OnceListener
+        }) as any
 
         onceListener.key = listener
 
         this.on(name, onceListener)
     }
 
-    public emit (name: string, ...params: any[]) {
+    public emit<K extends EventName<T>> (name: K, ...params: Parameters<T[K]>) {
         if (!this.has(name)) return
         forEach(this._listeners[name].slice(), listener => listener(...params))
     }
 
-    public has (name: string, listener?: Listener) {
+    public has<K extends EventName<T>> (name: K, listener?: T[K]) {
         if (!hasOwn(this._listeners, name)) return false
         if (!listener) return true
 

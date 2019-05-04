@@ -1,11 +1,11 @@
 import test from 'ava'
 import EventEmitter from '.'
 
-test('add listener, emit', t => {
+test('on(), emit()', t => {
     const emitter = new EventEmitter()
     let capture
 
-    emitter.on('event', (...params) => {
+    emitter.on('event', (...params: any[]) => {
         t.pass()
         capture = params
     })
@@ -16,7 +16,7 @@ test('add listener, emit', t => {
     t.deepEqual(capture, [1, 2, 3])
 })
 
-test.cb('off listener', t => {
+test.cb('off()', t => {
     const emitter = new EventEmitter()
     const failListener = t.fail.bind(t, 'Fails "off()"')
 
@@ -27,7 +27,7 @@ test.cb('off listener', t => {
     setTimeout(() => t.end(), 1)
 })
 
-test('once listener', t => {
+test('once()', t => {
     const emitter = new EventEmitter()
     emitter.once('event', t.pass.bind(t))
 
@@ -48,7 +48,7 @@ test('if invalid listener type, throws error', t => {
     t.throws(() => emitter.once('test', true as any))
 })
 
-test('has listener', t => {
+test('has()', t => {
     const emitter = new EventEmitter()
     const listener = () => undefined
     t.false(emitter.has('test'))
@@ -57,4 +57,17 @@ test('has listener', t => {
     t.true(emitter.has('test'))
     t.false(emitter.has('test', () => undefined))
     t.true(emitter.has('test', listener))
+})
+
+test('Events type support.', t => {
+    interface Events {
+        aa (): void,
+        bb (a: number, b: string): void
+    }
+    const emitter = new EventEmitter<Events>()
+    emitter.on('aa', () => [])
+    emitter.on('bb', (a, b) => [])
+    emitter.emit('aa')
+    emitter.emit('bb', 1, 's')
+    t.pass()
 })
