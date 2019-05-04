@@ -1,7 +1,7 @@
 {
     "name": "@byungi/event-emitter",
     "description": "A tiny event emitter that works old browser, and supports typescript.",
-    "version": "1.0.5",
+    "version": "1.1.0",
     "author": "skt-t1-byungi <tiniwz@gmail.com>",
     "repository": "https://github.com/skt-t1-byungi/event-emitter.git",
     "main": "dist/index.umd.js",
