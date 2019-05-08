@@ -32,7 +32,7 @@
     },
     "devDependencies": {
         "ava": "1.4.1",
-        "bili": "4.7.3",
+        "bili": "4.7.4",
         "rollup-plugin-typescript2": "0.21.0",
         "ts-node": "8.1.0",
         "tslint": "5.16.0",
