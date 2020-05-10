@@ -5,15 +5,15 @@ test('on, emit', () => {
     const f = jest.fn()
 
     const off = ee.on('a', f)
-    expect(f.mock.calls.length).toBe(0)
+    expect(f).toBeCalledTimes(0)
     ee.emit('a')
-    expect(f.mock.calls.length).toBe(1)
+    expect(f).toBeCalledTimes(1)
     ee.emit('a', 1, 2, 3)
-    expect(f.mock.calls.length).toBe(2)
-    expect(f.mock.calls[1]).toEqual([1, 2, 3])
+    expect(f).toBeCalledTimes(2)
+    expect(f).lastCalledWith(1, 2, 3)
     off()
     ee.emit('a')
-    expect(f.mock.calls.length).toBe(2)
+    expect(f).toBeCalledTimes(2)
 })
 
 test('off', () => {
@@ -23,7 +23,7 @@ test('off', () => {
     ee.on('a', f)
     ee.off('a', f)
     ee.emit('a')
-    expect(f.mock.calls.length).toBe(0)
+    expect(f).toBeCalledTimes(0)
 })
 
 test('once', () => {
@@ -34,11 +34,12 @@ test('once', () => {
     ee.emit('a')
     ee.emit('a')
     ee.emit('a')
-    expect(f.mock.calls.length).toBe(1)
+    expect(f).toBeCalledTimes(1)
 })
 
 test('check listener', () => {
     const ee = new EE()
+
     expect(() => ee.on('test', true as any)).toThrow()
     expect(() => ee.off('test', {} as any)).toThrow()
     expect(() => ee.once('test', 1 as any)).toThrow()
@@ -48,11 +49,11 @@ test('has', () => {
     const ee = new EE()
     const f = () => {}
 
-    expect(ee.has('a')).toBeFalsy()
+    expect(ee.has('a')).toBe(false)
     ee.on('a', f)
-    expect(ee.has('a')).toBeTruthy()
-    expect(ee.has('a', Function.prototype)).toBeFalsy()
-    expect(ee.has('a', f)).toBeTruthy()
+    expect(ee.has('a')).toBe(true)
+    expect(ee.has('a', Function.prototype)).toBe(false)
+    expect(ee.has('a', f)).toBe(true)
 })
 
 // eslint-disable-next-line jest/no-disabled-tests

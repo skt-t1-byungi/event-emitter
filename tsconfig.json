@@ -4,6 +4,7 @@
         "lib": ["dom"],
         "module": "ESNext",
         "moduleResolution": "Node",
+        "esModuleInterop": true,
         "declaration": true,
         "strict": true,
         "outDir": "./dist"
