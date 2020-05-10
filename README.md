@@ -61,7 +61,7 @@ Add an event listener. Returns function to off.
 
 ```js
 const off = emitter.on('a', listener)
-off() // = emitter.off('a', listener)
+off() // == emitter.off('a', listener)
 ```
 
 ### ee.off(name[, listener])
