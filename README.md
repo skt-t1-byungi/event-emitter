@@ -1,18 +1,13 @@
 # @byungi/event-emitter
-> A tiny event emitter that works old browser, and supports typescript.
+> Small (< 600Byte), type-safe event emitter that support old browsers.
 
 [![npm](https://flat.badgen.net/npm/v/@byungi/event-emitter)](https://www.npmjs.com/package/@byungi/event-emitter)
 [![bundle size](https://flat.badgen.net/bundlephobia/minzip/@byungi/event-emitter)](https://bundlephobia.com/result?p=@byungi/event-emitter)
 [![npm](https://flat.badgen.net/travis/skt-t1-byungi/event-emitter)](https://travis-ci.org/skt-t1-byungi/event-emitter)
 
-![bakabaka](./neko.png)
-
 ## Install
 ```sh
 npm i @byungi/event-emitter
-```
-```js
-import EventEmitter from '@byungi/event-emitter'
 ```
 
 ### UMD
@@ -34,43 +29,51 @@ import EventEmitter from '@byungi/event-emitter'
 ## Example
 ```ts
 interface Events {
-    aa(): void
-    bb(a: number, b: string): void
+    a(): void
+    b(a: number, b: string): void
 }
 const emitter = new EventEmitter<Events>()
 
 // ✔️ Compiled.
-emitter.on('aa', () => { /.../ })
-emitter.on('bb', (a, b) => { /.../ })
-emitter.emit('aa')
-emitter.emit('bb', 100, 'test')
+emitter.on('a', () => { /.../ })
+emitter.on('b', (a, b) => { /.../ })
+emitter.emit('a')
+emitter.emit('b', 100, 'test')
 
 // ❌ Compile error.
-emitter.on('aa', (a, b) => { /.../ })
-emitter.on('bb', (other:boolean) => { /.../ })
-emitter.on('ccc', () => { /.../ })
-emitter.emit('aa', 100, 'test')
-emitter.emit('bb')
-emitter.emit('ccc')
+emitter.on('a', (a, b) => { /.../ })
+emitter.on('b', (other:boolean) => { /.../ })
+emitter.on('c', () => { /.../ })
+emitter.emit('a', 100, 'test')
+emitter.emit('b')
+emitter.emit('c')
 ```
 
 ## Browser compatibility
-IE6+ 👴🏻
+IE6+
 
 ## API
-### on(name, listener)
-Add an event listener.
+### new EventEmitter()
+Create an event emitter instance.
 
-### has(name[, listener])
-Returns whether there is an event listener.
+### emitter.on(name, listener)
+Add an event listener. Returns function to off.
 
-### emit(name, ...params)
-Emit event to listeners.
+```js
+const off = emitter.on('a', listener)
+off() // = emitter.off('a', listener)
+```
 
-### off(name[, listener])
+### ee.off(name[, listener])
 Remove an event listener(s).
 
-### once(name, listener)
+### ee.has(name[, listener])
+Returns whether there is an event listener.
+
+### ee.emit(name, ...params)
+Emit event to listeners.
+
+### ee.once(name, listener)
 Add an event listener that runs once.
 
 ## License

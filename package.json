@@ -1,9 +1,10 @@
 {
     "name": "@byungi/event-emitter",
-    "description": "A tiny event emitter that works old browser, and supports typescript.",
+    "description": "Small (< 600Byte), type-safe event emitter that support old browsers.",
     "version": "1.1.0",
     "author": "skt-t1-byungi <tiniwz@gmail.com>",
     "repository": "https://github.com/skt-t1-byungi/event-emitter.git",
+    "source": "./src/index.ts",
     "main": "dist/index.umd.js",
     "module": "dist/index.esm.js",
     "unpkg": "dist/index.umd.js",
@@ -17,38 +18,33 @@
     "keywords": [
         "event",
         "emitter",
+        "typed",
         "ie"
     ],
     "license": "MIT",
     "scripts": {
-        "build": "rm -rf dist && bili src/index.ts --format esm,umd --module-name EventEmitter --bundle-node-modules",
-        "test": "ava",
+        "build": "rm -rf dist && microbundle -f es,umd --name EventEmitter",
+        "test": "jest",
         "prepublishOnly": "npm run test && npm run build"
     },
-    "dependencies": {
-        "@skt-t1-byungi/array-filter": "^0.2.0",
-        "@skt-t1-byungi/array-find-index": "^0.2.0",
-        "@skt-t1-byungi/array-for-each": "^0.2.0"
-    },
     "devDependencies": {
-        "ava": "1.4.1",
-        "bili": "4.7.4",
-        "rollup-plugin-typescript2": "0.21.0",
-        "ts-node": "8.1.0",
-        "tslint": "5.16.0",
-        "tslint-config-byungi": "0.1.1",
-        "typescript": "3.4.5"
+        "@types/jest": "^25.2.1",
+        "eslint": "^6",
+        "eslint-config-byungi": "^0.11.1",
+        "jest": "^26.0.1",
+        "microbundle": "^0.12.0",
+        "ts-jest": "^25.5.1",
+        "ts-node": "8.10.1",
+        "typescript": "3.8.3"
     },
     "publishConfig": {
         "access": "public"
     },
-    "ava": {
-        "compileEnhancements": false,
-        "extensions": [
-            "ts"
-        ],
-        "require": [
-            "ts-node/register"
-        ]
-    }
+    "eslintConfig": {
+        "extends": "byungi/typescript"
+    },
+    "eslintIgnore": [
+        "*.js",
+        "dist"
+    ]
 }
