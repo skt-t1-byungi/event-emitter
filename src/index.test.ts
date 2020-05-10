@@ -43,6 +43,7 @@ test('check listener', () => {
     expect(() => ee.off('test', {} as any)).toThrow()
     expect(() => ee.once('test', 1 as any)).toThrow()
 })
+
 test('has', () => {
     const ee = new EE()
     const f = () => {}
