@@ -1,5 +1,5 @@
 # @byungi/event-emitter
-> Small (< 600Byte), type-safe event emitter that support old browsers.
+> Small (< 600Byte), type-safe event emitter that support old browsers
 
 [![npm](https://flat.badgen.net/npm/v/@byungi/event-emitter)](https://www.npmjs.com/package/@byungi/event-emitter)
 [![bundle size](https://flat.badgen.net/bundlephobia/minzip/@byungi/event-emitter)](https://bundlephobia.com/result?p=@byungi/event-emitter)
