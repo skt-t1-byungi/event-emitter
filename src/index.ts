@@ -11,7 +11,10 @@ export class EventEmitter<O extends { [k in keyof O]: AnyFn} = any> {
         (hasOwn(this._o, name) ? this._o[name] : this._o[name] = []).push(listener)
         return () => {
             const fns = this._o[name]
-            if (fns) fns.splice(fns.indexOf(listener), 1)
+            if (fns) {
+                fns.splice(fns.indexOf(listener), 1)
+                if (fns.length === 0) delete this._o[name]
+            }
         }
     }
 
