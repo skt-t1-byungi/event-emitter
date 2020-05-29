@@ -13,7 +13,10 @@ export class EventEmitter<O extends { [k in keyof O]: AnyFn} = any> {
             const fns = this._o[name]
             if (fns) {
                 const idx = fns.indexOf(listener)
-                if (~idx) fns.splice(idx, 1)
+                if (~idx) {
+                    fns.splice(idx, 1)
+                    if (fns.length === 0) delete this._o[name]
+                }
             }
         }
     }

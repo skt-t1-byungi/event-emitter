@@ -50,10 +50,12 @@ test('has', () => {
     const f = () => {}
 
     expect(ee.has('a')).toBe(false)
-    ee.on('a', f)
+    const off = ee.on('a', f)
     expect(ee.has('a')).toBe(true)
     expect(ee.has('a', Function.prototype)).toBe(false)
     expect(ee.has('a', f)).toBe(true)
+    off()
+    expect(ee.has('a')).toBe(false)
 })
 
 test('Returned off() should not affect other listeners.', () => {
