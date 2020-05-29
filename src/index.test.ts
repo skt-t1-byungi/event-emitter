@@ -56,6 +56,17 @@ test('has', () => {
     expect(ee.has('a', f)).toBe(true)
 })
 
+test('Returned off() should not affect other listeners.', () => {
+    const ee = new EE()
+    const off = ee.on('a', Function.prototype)
+    ee.off('a', Function.prototype)
+    const f = jest.fn()
+    ee.on('a', f)
+    off()
+    ee.emit('a')
+    expect(f).toBeCalledTimes(1)
+})
+
 // eslint-disable-next-line jest/no-disabled-tests
 test.skip('Events type support.', () => {
     interface Events {
