@@ -9,16 +9,7 @@ export class EventEmitter<O extends { [k in keyof O]: AnyFn} = any> {
     on<K extends NameBy<O>> (name: K, listener: ListenerBy<O, K>) {
         assertListener(listener);
         (hasOwn(this._o, name) ? this._o[name] : this._o[name] = []).push(listener)
-        return () => {
-            const fns = this._o[name]
-            if (fns) {
-                const idx = fns.indexOf(listener)
-                if (~idx) {
-                    fns.splice(idx, 1)
-                    if (fns.length === 0) delete this._o[name]
-                }
-            }
-        }
+        return () => this.off(name, listener)
     }
 
     off<K extends NameBy<O>> (name: K, listener?: ListenerBy<O, K>): void {
