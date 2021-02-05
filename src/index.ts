@@ -1,18 +1,18 @@
 type AnyFn = (...params: any[]) => void
-type Once = AnyFn & {key: AnyFn}
+type Once = AnyFn & { key: AnyFn }
 type NameBy<O> = (keyof O & string) | string | number
 type ListenerBy<O, K> = K extends keyof O ? O[K] : AnyFn
 
-export class EventEmitter<O extends { [k in keyof O]: AnyFn} = any> {
-    private _o: { [name: string]: Array<AnyFn|Once> } = {}
+export class EventEmitter<O extends { [k in keyof O]: AnyFn } = any> {
+    private _o: { [name: string]: Array<AnyFn | Once> } = {}
 
-    on<K extends NameBy<O>> (name: K, listener: ListenerBy<O, K>) {
-        assertListener(listener);
-        (hasOwn(this._o, name) ? this._o[name] : this._o[name] = []).push(listener)
+    on<K extends NameBy<O>>(name: K, listener: ListenerBy<O, K>) {
+        assertListener(listener)
+        ;(hasOwn(this._o, name) ? this._o[name] : (this._o[name] = [])).push(listener)
         return () => this.off(name, listener)
     }
 
-    off<K extends NameBy<O>> (name: K, listener?: ListenerBy<O, K>): void {
+    off<K extends NameBy<O>>(name: K, listener?: ListenerBy<O, K>): void {
         if (listener) assertListener(listener)
         if (!hasOwn(this._o, name)) return
         if (!listener) {
@@ -33,7 +33,7 @@ export class EventEmitter<O extends { [k in keyof O]: AnyFn} = any> {
         }
     }
 
-    once<K extends NameBy<O>> (name: K, listener: ListenerBy<O, K>) {
+    once<K extends NameBy<O>>(name: K, listener: ListenerBy<O, K>) {
         assertListener(listener)
         const f: any = (...params: any[]) => {
             this.off(name, f)
@@ -43,7 +43,7 @@ export class EventEmitter<O extends { [k in keyof O]: AnyFn} = any> {
         return this.on(name, f)
     }
 
-    emit<K extends NameBy<O>> (name: K, ...params: Parameters<ListenerBy<O, K>>) {
+    emit<K extends NameBy<O>>(name: K, ...params: Parameters<ListenerBy<O, K>>) {
         if (!hasOwn(this._o, name)) return
         const fns = this._o[name].slice()
         for (let i = 0; i < fns.length; i++) {
@@ -51,7 +51,7 @@ export class EventEmitter<O extends { [k in keyof O]: AnyFn} = any> {
         }
     }
 
-    has<K extends NameBy<O>> (name: K, listener?: ListenerBy<O, K>) {
+    has<K extends NameBy<O>>(name: K, listener?: ListenerBy<O, K>) {
         if (!hasOwn(this._o, name)) return false
         if (!listener) return true
 
@@ -67,15 +67,15 @@ export class EventEmitter<O extends { [k in keyof O]: AnyFn} = any> {
 
 export default EventEmitter
 
-function assertListener (f: AnyFn) {
+function assertListener(f: AnyFn) {
     const type = typeof f
     if (type !== 'function') throw new TypeError(`Expected listener to be a function, but ${type}`)
 }
 
-function hasOwn (o: object, k: string|number) {
+function hasOwn(o: object, k: string | number) {
     return Object.prototype.hasOwnProperty.call(o, k)
 }
 
-function equalListener (target: AnyFn | Once, f: AnyFn) {
+function equalListener(target: AnyFn | Once, f: AnyFn) {
     return target === f || (target as Once).key === f
 }

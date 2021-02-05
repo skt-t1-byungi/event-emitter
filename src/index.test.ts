@@ -69,12 +69,11 @@ test('Returned off() should not affect other listeners.', () => {
     expect(f).toBeCalledTimes(1)
 })
 
-// eslint-disable-next-line jest/no-disabled-tests
 test.skip('Events type support.', () => {
     interface Events {
-        aa (): void;
-        bb (a: number, b: string): void;
-        '1'(): void;
+        aa(): void
+        bb(a: number, b: string): void
+        '1'(): void
     }
     const ee = new EE<Events>()
     ee.on('aa', () => [])
