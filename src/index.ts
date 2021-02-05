@@ -1,25 +1,28 @@
-type AnyFn = (...params: any[]) => void
-type Once = AnyFn & { key: AnyFn }
-type NameBy<O> = (keyof O & string) | string | number
-type ListenerBy<O, K> = K extends keyof O ? O[K] : AnyFn
+type AnyFunc = (...args: any[]) => void
+type OnceFunc = AnyFunc & { key: Function }
+type EventName<Events> = keyof Events & string
+type EventListener<Events, K> = K extends keyof Events ? Events[K] : AnyFunc
+type InternalListener = AnyFunc | OnceFunc
 
-export class EventEmitter<O extends { [k in keyof O]: AnyFn } = any> {
-    private _o: { [name: string]: Array<AnyFn | Once> } = {}
+export class EventEmitter<Events extends { [K in keyof Events]: AnyFunc } = Record<string, AnyFunc>> {
+    private _map: Record<string | number, InternalListener[]> = {}
 
-    on<K extends NameBy<O>>(name: K, listener: ListenerBy<O, K>) {
+    on<K extends EventName<Events>>(name: K, listener: EventListener<Events, K>) {
         assertListener(listener)
-        ;(hasOwn(this._o, name) ? this._o[name] : (this._o[name] = [])).push(listener)
+        ;(hasOwn(this._map, name) ? this._map[name] : (this._map[name] = [] as InternalListener[])).push(listener)
         return () => this.off(name, listener)
     }
 
-    off<K extends NameBy<O>>(name: K, listener?: ListenerBy<O, K>): void {
+    off<K extends EventName<Events>>(name: K, listener?: EventListener<Events, K>): void {
         if (listener) assertListener(listener)
-        if (!hasOwn(this._o, name)) return
+
+        if (!hasOwn(this._map, name)) return
         if (!listener) {
-            return void delete this._o[name]
+            delete this._map[name]
+            return
         }
 
-        const prev = this._o[name]
+        const prev = this._map[name]
         const next = []
         for (let i = 0; i < prev.length; i++) {
             const f = prev[i]
@@ -27,37 +30,39 @@ export class EventEmitter<O extends { [k in keyof O]: AnyFn } = any> {
         }
 
         if (next.length > 0) {
-            this._o[name] = next
+            this._map[name] = next
         } else {
-            delete this._o[name]
+            delete this._map[name]
         }
     }
 
-    once<K extends NameBy<O>>(name: K, listener: ListenerBy<O, K>) {
+    once<K extends EventName<Events>>(name: K, listener: EventListener<Events, K>) {
         assertListener(listener)
+
         const f: any = (...params: any[]) => {
             this.off(name, f)
             listener(...params)
         }
         f.key = listener
+
         return this.on(name, f)
     }
 
-    emit<K extends NameBy<O>>(name: K, ...params: Parameters<ListenerBy<O, K>>) {
-        if (!hasOwn(this._o, name)) return
-        const fns = this._o[name].slice()
+    emit<K extends EventName<Events>>(name: K, ...params: Parameters<EventListener<Events, K>>) {
+        if (!hasOwn(this._map, name)) return
+        const fns = this._map[name].slice()
         for (let i = 0; i < fns.length; i++) {
             fns[i](...params)
         }
     }
 
-    has<K extends NameBy<O>>(name: K, listener?: ListenerBy<O, K>) {
-        if (!hasOwn(this._o, name)) return false
+    has<K extends EventName<Events>>(name: K, listener?: EventListener<Events, K>) {
+        if (!hasOwn(this._map, name)) return false
         if (!listener) return true
 
         assertListener(listener)
 
-        const fns = this._o[name]
+        const fns = this._map[name]
         for (let i = 0; i < fns.length; i++) {
             if (equalListener(fns[i], listener)) return true
         }
@@ -67,7 +72,7 @@ export class EventEmitter<O extends { [k in keyof O]: AnyFn } = any> {
 
 export default EventEmitter
 
-function assertListener(f: AnyFn) {
+function assertListener(f: any): asserts f is Function {
     const type = typeof f
     if (type !== 'function') throw new TypeError(`Expected listener to be a function, but ${type}`)
 }
@@ -76,6 +81,6 @@ function hasOwn(o: object, k: string | number) {
     return Object.prototype.hasOwnProperty.call(o, k)
 }
 
-function equalListener(target: AnyFn | Once, f: AnyFn) {
-    return target === f || (target as Once).key === f
+function equalListener(fn: InternalListener, key: Function) {
+    return fn === key || ((fn as OnceFunc).key && (fn as OnceFunc).key === key)
 }

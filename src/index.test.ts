@@ -76,9 +76,9 @@ test.skip('Events type support.', () => {
         '1'(): void
     }
     const ee = new EE<Events>()
-    ee.on('aa', () => [])
+    ee.on('1', () => [])
     ee.on('bb', (a, b) => [])
     ee.emit('aa')
     ee.emit('bb', 1, 's')
-    ee.has(1)
+    ee.has('1')
 })
