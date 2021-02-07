@@ -4,7 +4,7 @@ type EventName<Events> = keyof Events & string
 type EventListener<Events, K> = K extends keyof Events ? Events[K] : AnyFunc
 type InternalListener = AnyFunc | OnceFunc
 
-export class EventEmitter<Events extends { [K in keyof Events]: AnyFunc } = Record<string, AnyFunc>> {
+export class EventEmitter<Events extends { [K: string]: AnyFunc } = Record<string, AnyFunc>> {
     private _map: Record<string | number, InternalListener[]> = {}
 
     on<K extends EventName<Events>>(name: K, listener: EventListener<Events, K>) {
@@ -77,7 +77,7 @@ function assertListener(f: any): asserts f is Function {
     if (type !== 'function') throw new TypeError(`Expected listener to be a function, but ${type}`)
 }
 
-function hasOwn(o: object, k: string | number) {
+function hasOwn(o: object, k: string) {
     return Object.prototype.hasOwnProperty.call(o, k)
 }
 

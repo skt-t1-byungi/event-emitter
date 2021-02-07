@@ -52,7 +52,7 @@ test('has', () => {
     expect(ee.has('a')).toBe(false)
     const off = ee.on('a', f)
     expect(ee.has('a')).toBe(true)
-    expect(ee.has('a', Function.prototype)).toBe(false)
+    expect(ee.has('a', noop)).toBe(false)
     expect(ee.has('a', f)).toBe(true)
     off()
     expect(ee.has('a')).toBe(false)
@@ -60,8 +60,8 @@ test('has', () => {
 
 test('Returned off() should not affect other listeners.', () => {
     const ee = new EE()
-    const off = ee.on('a', Function.prototype)
-    ee.off('a', Function.prototype)
+    const off = ee.on('a', noop)
+    ee.off('a', noop)
     const f = jest.fn()
     ee.on('a', f)
     off()
@@ -70,7 +70,7 @@ test('Returned off() should not affect other listeners.', () => {
 })
 
 test.skip('Events type support.', () => {
-    interface Events {
+    type Events = {
         aa(): void
         bb(a: number, b: string): void
         '1'(): void
@@ -82,3 +82,5 @@ test.skip('Events type support.', () => {
     ee.emit('bb', 1, 's')
     ee.has('1')
 })
+
+function noop() {}
